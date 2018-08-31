@@ -10,51 +10,34 @@ class App extends Component {
   render () {
     return (
       <div className='App'>
-        <Switch initalState={false} />
-        <button />
+        <Timer>
+          {count => <h1>{count}</h1>}
+        </Timer>
+        <Timer>
+          {count => <h1>{count + 100}</h1>}
+        </Timer>
       </div>
     )
+  }
+}
+
+class Timer extends Component {
+  state = { count: 0 }
+  componentDidMount () {
+    this.timer = setInterval(() => {
+      const count = this.state.count
+      this.setState({ count: count + 1 })
+    }, 1000)
+  }
+
+  componentWillUnmount () {
+    clearInterval(this.timer)
+  }
+
+  render () {
+    this.props.children
+    return this.props.children(this.state.count)
   }
 }
 
 export default App
-
-// Stateless Components
-function Welcome (props) {
-  return <h1 className='App-title'>Welcome to React, {props.name}</h1>
-}
-
-// State Full Component
-class Switch extends Component {
-  constructor (props) {
-    super(props)
-    this.state = { on: this.props.initalState, name: 'AKila' }
-    this.onClick = this.onClick.bind(this)
-  }
-
-  componentWillMount () {
-    console.log('Component will mount')
-  }
-
-  shouldComponentUpdate (nextProps, nextState) {
-    console.log('Should component update', nextProps, nextState)
-    return false
-  }
-
-  onClick () {
-    this.setState({ on: !this.state.on })
-  }
-
-  render () {
-    return (
-      <div>
-        {this.state.name}
-        <button onClick={this.onClick}>{this.state.on ? 'On' : 'Off'}</button>
-      </div>
-    )
-  }
-}
-
-Switch.propTypes = {
-  initalState: PropTypes.bool
-}
