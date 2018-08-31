@@ -1,23 +1,17 @@
 import React, { Component } from 'react'
 import logo from './logo.svg'
+import PropTypes from 'prop-types'
 import './App.css'
-import UserList from './components/UserList'
+import UserList, { UserListHeader, name } from './components/UserList'
+
+const users = [{ name: 'Akila', phoneNumber: '0113313rr21' }, { name: 'Narthana', phoneNumber: '032892113' }]
 
 class App extends Component {
   render () {
     return (
       <div className='App'>
-        <Welcome name={'Akila'} />
-        <hr />
-        <UserList
-          users={[
-                        { name: 'Akila', phoneNumber: '0113313rr21' },
-                        { name: 'Narthana', phoneNumber: '032892113' }
-          ]}
-                />
-        <hr />
-        Stateful component
-        <Switch />
+        <Switch initalState={false} />
+        <button />
       </div>
     )
   }
@@ -31,11 +25,20 @@ function Welcome (props) {
 }
 
 // State Full Component
-class Switch extends React.Component {
+class Switch extends Component {
   constructor (props) {
     super(props)
-    this.state = { on: false }
+    this.state = { on: this.props.initalState, name: 'AKila' }
     this.onClick = this.onClick.bind(this)
+  }
+
+  componentWillMount () {
+    console.log('Component will mount')
+  }
+
+  shouldComponentUpdate (nextProps, nextState) {
+    console.log('Should component update', nextProps, nextState)
+    return false
   }
 
   onClick () {
@@ -45,8 +48,13 @@ class Switch extends React.Component {
   render () {
     return (
       <div>
+        {this.state.name}
         <button onClick={this.onClick}>{this.state.on ? 'On' : 'Off'}</button>
       </div>
     )
   }
+}
+
+Switch.propTypes = {
+  initalState: PropTypes.bool
 }
