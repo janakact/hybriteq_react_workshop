@@ -1,13 +1,22 @@
 import React, { Component } from 'react'
 import logo from './logo.svg'
 import './App.css'
+import UserList from './components/UserList'
 
 class App extends Component {
   render () {
     return (
       <div className='App'>
         <Welcome name={'Akila'} />
+        <hr />
         <Switch />
+        <hr />
+        <UserList
+          users={[
+                        { name: 'Akila', phoneNumber: '0113313rr21' },
+                        { name: 'Narthana', phoneNumber: '032892113' }
+          ]}
+                />
       </div>
     )
   }
