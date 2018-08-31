@@ -9,14 +9,15 @@ class App extends Component {
       <div className='App'>
         <Welcome name={'Akila'} />
         <hr />
-        <Switch />
-        <hr />
         <UserList
           users={[
                         { name: 'Akila', phoneNumber: '0113313rr21' },
                         { name: 'Narthana', phoneNumber: '032892113' }
           ]}
                 />
+        <hr />
+        Stateful component
+        <Switch />
       </div>
     )
   }
